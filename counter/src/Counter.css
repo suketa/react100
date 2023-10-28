@@ -1,0 +1,36 @@
+.counter {
+  width: 250px;
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 5px;
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-template-rows: 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 10px;
+  height: 150px;
+}
+
+.count {
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  color: #00F;
+}
+
+.button__container {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  width: 50px;
+  height:50px;
+  border-radius: 100%;
+  border: 1px solid #00f;
+  background-color: #0f0;
+  font-size: 30px;
+  font-weight: bold;
+  color: #00F;
+  cursor: pointer;
+}
