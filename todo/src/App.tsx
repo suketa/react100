@@ -21,7 +21,7 @@ function App() {
   }
 
   const setToDos = (todo: string) => {
-    setTodos([...todos, {id: todos.length, value: todo}]);
+    setTodos([...todos, {id: crypto.randomUUID(), value: todo}]);
   }
 
   const onClickShowEntry = () => {
@@ -33,27 +33,40 @@ function App() {
   }
 
   return (
-    <>
+    <div className="ToDoApp">
       <h1>TODO List</h1>
       <div>
         {show ? (
           <div className="modal">
-            <h2>新規登録</h2>
-            <InputForm type="text" value={todo} onChange={onChangeText}/>
-            <button onClick={addEntry}>追加</button>
-            <button onClick={onClickCancel}>キャンセル</button>
+            <div className="modal-background" onClick={onClickCancel}></div>
+            <div className="modal-content">
+              <h2>新規登録</h2>
+              <InputForm type="text" value={todo} onChange={onChangeText}/>
+              <div className="button-group">
+                <button onClick={addEntry}>追加</button>
+                <button onClick={onClickCancel}>キャンセル</button>
+              </div>
+            </div>
           </div>
         ) : null}
       </div>
       <ul>
         {todos.map((todo) => {
-          return <li key={todo.id}>{todo.value}<button onClick={() => deleteToDo(todo.id)}>x</button></li>
+          return (
+            <li key={todo.id}>
+              <input type="checkbox"/>
+              <div className="todo-item">
+              {todo.value}
+              </div>
+              <button className="button-delete" onClick={() => deleteToDo(todo.id)}>
+                x
+              </button>
+            </li>
+          )
         })}
       </ul>
-      <button onClick={onClickShowEntry}>
-        +
-      </button>
-    </>
+      <button className="button-show-entry" onClick={onClickShowEntry}>+</button>
+    </div>
   )
 }
 
