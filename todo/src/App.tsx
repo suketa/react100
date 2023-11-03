@@ -22,6 +22,7 @@ function App() {
 
   const setToDos = (todo: string) => {
     setTodos([...todos, {id: crypto.randomUUID(), value: todo}]);
+    setTodo('');
   }
 
   const onClickShowEntry = () => {
@@ -30,50 +31,68 @@ function App() {
 
   const onClickCancel = () => {
     setShow(false);
+    setTodo('');
   }
 
   return (
     <div className="ToDoApp">
       <h1>TODO List</h1>
       <div>
-        {show ? (
-          <div className="modal">
-            <div className="modal-background" onClick={onClickCancel}></div>
-            <div className="modal-content">
-              <h2>新規登録</h2>
-              <InputForm type="text" value={todo} onChange={onChangeText}/>
-              <div className="button-group">
-                <button onClick={addEntry}>追加</button>
-                <button onClick={onClickCancel}>キャンセル</button>
-              </div>
-            </div>
-          </div>
-        ) : null}
+        {show ?
+          <ModalTodo
+            value={todo}
+            onChangeText={onChangeText}
+            onClickaddEntry={addEntry}
+            onClickCancel={onClickCancel}
+          />
+          : null}
       </div>
-      <ul>
-        {todos.map((todo) => {
-          return (
-            <li key={todo.id}>
-              <input type="checkbox"/>
-              <div className="todo-item">
-              {todo.value}
-              </div>
-              <button className="button-delete" onClick={() => deleteToDo(todo.id)}>
-                x
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+      <ToDoList todos={todos} onClickDelete={deleteToDo}/>
       <button className="button-show-entry" onClick={onClickShowEntry}>+</button>
     </div>
   )
 }
 
-const InputForm = (props) => {
+const InputForm = ({value, onChange}) => {
   return (
-    <input type="text" value={props.todo} onChange={props.onChange}/>
+    <input type="text" value={value} onChange={onChange}/>
   );
+}
+
+const ModalTodo = (props) => {
+  return (
+    <div className="modal">
+      <div className="modal-background"></div>
+      <div className="modal-content">
+        <h2>新規登録</h2>
+        <InputForm type="text" value={props.value} onChange={props.onChangeText}/>
+        <div className="button-group">
+          <button onClick={props.onClickaddEntry}>追加</button>
+          <button onClick={props.onClickCancel}>キャンセル</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const ToDoList = ({todos, onClickDelete}) => {
+  return (
+   <ul>
+      {todos.map((todo) => {
+        return (
+          <li key={todo.id}>
+            <input type="checkbox"/>
+            <div className="todo-item">
+              {todo.value}
+            </div>
+            <button className="button-delete" onClick={() => onClickDelete(todo.id)}>
+              x
+            </button>
+          </li>
+        )
+      })}
+    </ul>
+  )
 }
 
 export default App
