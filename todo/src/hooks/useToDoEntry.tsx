@@ -15,12 +15,13 @@ const useToDoEntry = () => {
     setShow(false);
   };
 
-  const ToDoEntry = () => {
+  const ToDoEntry = ({children}) => {
     if (!show) return null;
 
     return (
       <>
       <h2>新規登録</h2>
+        {children}
         <button onClick={createToDo}>追加</button>
         <button onClick={cancel} >キャンセル</button>
       </>
