@@ -26,8 +26,7 @@ function App() {
   }
 
   const onClickReset = () => {
-    window.clearInterval(timerRef.current!)
-    timerRef.current = null
+    onClickStop()
     setCount(Number(value))
   }
 
@@ -48,8 +47,7 @@ function App() {
 
   useEffect(() => {
     if (count === 0 && timerRef.current !== null) {
-      window.clearInterval(timerRef.current!)
-      timerRef.current = null
+      onClickStop()
       play()
     }
   }, [count])
@@ -58,7 +56,7 @@ function App() {
 
   return (
     <div className="timer">
-      <div className="counter" style={{background: `linear-gradient(180deg, #FFFFFF 0 ${num}%, #315a8c 0% 100%)`}}>
+      <div className="counter" style={{background: `linear-gradient(180deg, #FFFFFF 0 ${num}%, #4DF 0% 100%)`}}>
         <input type="text" value={timerRef.current !== null ? count : value} onChange={onChangeInput} />
       </div>
       <div className="button_area">
