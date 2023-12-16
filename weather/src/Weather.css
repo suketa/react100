@@ -1,0 +1,11 @@
+h1 {
+  text-align: center;
+}
+.weather-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
